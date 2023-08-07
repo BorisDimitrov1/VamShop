@@ -12,17 +12,18 @@ public class AdminPanel {
 
     private By contactUsTab = By.xpath("//a[@href='#contact-us']");
 
-    public void verifyCustomerNameInOrders(String expectedName){
+    public String getCustomerNameText(){
         Browser.wait.until(ExpectedConditions.visibilityOfElementLocated(firstCustomerNameInOrdersTab));
-        Browser.wait.until(ExpectedConditions.textToBePresentInElementLocated(firstCustomerNameInOrdersTab, expectedName));
+        return Browser.getDriver().findElement(firstCustomerNameInOrdersTab).getText();
     }
 
     public void clickContactUsTab(){
         Browser.wait.until(ExpectedConditions.visibilityOfElementLocated(contactUsTab)).click();
     }
 
-    public void verifyCustomerNameInContactUs(String expectedName){
+    public String getCustomerNameInContactUs(){
         Browser.wait.until(ExpectedConditions.visibilityOfElementLocated(firstContactNameInContactUsTab));
-        Browser.wait.until(ExpectedConditions.textToBePresentInElementLocated(firstContactNameInContactUsTab, expectedName));
+
+        return Browser.getDriver().findElement(firstContactNameInContactUsTab).getText();
     }
 }

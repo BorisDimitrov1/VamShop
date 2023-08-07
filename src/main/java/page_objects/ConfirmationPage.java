@@ -18,15 +18,11 @@ public class ConfirmationPage {
         Browser.wait.until(ExpectedConditions.visibilityOfElementLocated(confirmOrderButton)).click();
     }
 
-    public void verifyTotalAmount(String expectedAmount){
-        WebElement amountAsElement = Browser.wait.until(ExpectedConditions.visibilityOfElementLocated(totalValue));
-
-        String actualAmount = amountAsElement.getText().replaceAll("[^0-9]", "");
-
-        Assert.assertEquals("Total amount was not correct", actualAmount, expectedAmount);
+    public String getTotalAmount(){
+        return Browser.wait.until(ExpectedConditions.visibilityOfElementLocated(totalValue)).getText();
     }
 
-    public void verifyThankYouLabel() {
-        Browser.wait.until(ExpectedConditions.visibilityOfElementLocated(thankYouLabel));
+    public String getThankYouLabelText(){
+        return Browser.wait.until(ExpectedConditions.visibilityOfElementLocated(thankYouLabel)).getText();
     }
 }

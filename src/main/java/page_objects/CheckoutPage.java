@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,35 +23,38 @@ public class CheckoutPage {
     private By inStorePickup = By.id("payment_1");
     private By continueButton = By.xpath("//button[@value='Continue']");
 
-    public void verifyNumberOfPaymentMethods(int expectedNumberOfPaymentMethods){
+    public int getNumberOfPaymentMethods(){
         Browser.wait.until(ExpectedConditions.visibilityOfElementLocated(allPaymentMethods));
-        Browser.wait.until(ExpectedConditions.numberOfElementsToBe(allPaymentMethods, expectedNumberOfPaymentMethods));
+
+        return Browser.getDriver().findElements(allPaymentMethods).size();
     }
 
-    public void verifyPaymentMethodsNames(String expectedPaymentMethodsNames){
-
+    public List<String> getPaymentMethodsNames(){
         List<WebElement> actualPaymentMethods = Browser.wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(allPaymentMethodsNames));
 
-        List<String> expectedPaymentMethodsAsList = Arrays.asList(expectedPaymentMethodsNames.split(","));
+        List<String> paymentMethodsAsStrings = new ArrayList<String>();
 
-        for(int currentIndex = 0; currentIndex < expectedPaymentMethodsAsList.size(); currentIndex++){
-            Browser.wait.until(ExpectedConditions.textToBePresentInElement(actualPaymentMethods.get(currentIndex), expectedPaymentMethodsAsList.get(currentIndex).trim()));
+        int index = 0;
+        for(WebElement el : actualPaymentMethods){
+            paymentMethodsAsStrings.add(actualPaymentMethods.get(index++).getText());
         }
+
+        return paymentMethodsAsStrings;
     }
 
     public void populateNameField(String name){
         Browser.wait.until(ExpectedConditions.visibilityOfElementLocated(this.name)).clear();
-        Browser.wait.until(ExpectedConditions.visibilityOfElementLocated(this.name)).sendKeys(name);
+        Browser.getDriver().findElement(this.name).sendKeys(name);
     }
 
     public void populateEmailField(String email) {
         Browser.wait.until(ExpectedConditions.visibilityOfElementLocated(this.email)).clear();
-        Browser.wait.until(ExpectedConditions.visibilityOfElementLocated(this.email)).sendKeys(email);
+        Browser.getDriver().findElement(this.email).sendKeys(email);
     }
 
     public void populatePhoneField(String phone) {
         Browser.wait.until(ExpectedConditions.visibilityOfElementLocated(this.phone)).clear();
-        Browser.wait.until(ExpectedConditions.visibilityOfElementLocated(this.phone)).sendKeys(phone);
+        Browser.getDriver().findElement(this.phone).sendKeys(phone);
     }
 
     public void selectInStorePickUp() {

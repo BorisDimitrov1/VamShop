@@ -13,12 +13,12 @@ public class AdminLoginPage {
 
     public void populateUsername(String username){
         Browser.wait.until(ExpectedConditions.visibilityOfElementLocated(this.username)).clear();
-        Browser.wait.until(ExpectedConditions.visibilityOfElementLocated(this.username)).sendKeys(username);
+        Browser.getDriver().findElement(this.username).sendKeys(username);
     }
 
     public void populatePassword(String password){
         Browser.wait.until(ExpectedConditions.visibilityOfElementLocated(this.password)).clear();
-        Browser.wait.until(ExpectedConditions.visibilityOfElementLocated(this.password)).sendKeys(password);
+        Browser.getDriver().findElement(this.password).sendKeys(password);
     }
 
     public void clickLoginButton(){

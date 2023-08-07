@@ -1,7 +1,11 @@
 package step_definitions;
 
 import io.cucumber.java.en.And;
+import org.junit.Assert;
 import page_objects.CheckoutPage;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class CheckoutStepDefinitions {
 
@@ -9,12 +13,16 @@ public class CheckoutStepDefinitions {
 
     @And("Verify there are {int} payment methods presented")
     public void verifyThereArePaymentMethodsPresented(int expectedNumberOfPaymentMethods) {
-        checkoutPage.verifyNumberOfPaymentMethods(expectedNumberOfPaymentMethods);
+        Assert.assertEquals(checkoutPage.getNumberOfPaymentMethods(), expectedNumberOfPaymentMethods);
     }
 
     @And("Verify the Payment Methods presented are {string}")
     public void verifyThePaymentMethodsPresentedAre(String expectedPaymentMethods) {
-        checkoutPage.verifyPaymentMethodsNames(expectedPaymentMethods);
+        List<String> actualPaymentMethodNames = checkoutPage.getPaymentMethodsNames();
+
+        List<String> expectedPaymentMethodsAsString = Arrays.asList(expectedPaymentMethods.split(","));
+
+        Assert.assertTrue(actualPaymentMethodNames.size() == expectedPaymentMethodsAsString.size() && actualPaymentMethodNames.containsAll(expectedPaymentMethodsAsString));
     }
 
     @And("Populate name field in checkout page with {string}")

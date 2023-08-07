@@ -14,7 +14,7 @@ Feature: Vam Shop - Contacts
     When I navigate to the e-shop
     And Click on the categories dropdown
     Then Verify there are 4 categories presented in the Categories Dropdown
-    And Verify the Categories presented are "Smart Watches, Notebooks, Smartphones, Tablets"
+    And Verify the Categories presented are "Smart Watches,Notebooks,Smartphones,Tablets"
 
   @search @regression
   Scenario: Search for specific item
@@ -32,7 +32,7 @@ Feature: Vam Shop - Contacts
     And Click on Buy button for the first presented result
     And CLick Checkout button
     Then Verify there are 6 payment methods presented
-    Then Verify the Payment Methods presented are "In-store Pickup, Money Order Check, Paypal, Credit Card, Authorize.Net, Google Checkout"
+    Then Verify the Payment Methods presented are "In-store Pickup,Money Order Check,Paypal,Credit Card,Authorize.Net,Google Checkout"
 
   @sale @regression
   Scenario: Buy a single item
@@ -47,9 +47,9 @@ Feature: Vam Shop - Contacts
     And Populate phone field in checkout page with "0884045188"
     And Select In-store pickup from the payment methods in checkout page
     And Click on Continue button in checkout page
-    And Verify the total amount is "399"
+    And Verify the total amount is "$ 399"
     And Click confirm order button
-    Then Verify thank you label
+    Then Verify thank you label have text "Thank You"
 
   @admin @regression
   Scenario: Login as admin
@@ -72,9 +72,9 @@ Feature: Vam Shop - Contacts
     And Populate phone field in checkout page with "0884045188"
     And Select In-store pickup from the payment methods in checkout page
     And Click on Continue button in checkout page
-    And Verify the total amount is "399"
+    And Verify the total amount is "$ 399"
     And Click confirm order button
-    Then Verify thank you label
+    Then Verify thank you label have text "Thank You"
     When I navigate to the e-shop admin login
     And Populate the username field with correct username
     And Populate the password field with correct password

@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,48 +29,50 @@ public class Header {
     private By itemsAddedToCart = By.xpath("//span[contains(@class,'progress-bar-danger')]");
     private By checkoutButton = By.xpath("//a[contains(@class,'checkout')]");
 
-
-    public void verifyPhone(String expectedPhone){
+    public String getPhone(){
         Browser.wait.until(ExpectedConditions.visibilityOfElementLocated(phoneLocator));
-        Browser.wait.until(ExpectedConditions.attributeContains(phoneLocator, "innerText", expectedPhone));
+        return Browser.getDriver().findElement(phoneLocator).getText();
     }
 
-
-    public void verifyTwitterLink(String expectedLink) {
+    public String getTwitterLink(){
         Browser.wait.until(ExpectedConditions.visibilityOfElementLocated(twitterLink));
-        Browser.wait.until(ExpectedConditions.attributeToBe(twitterLink, "href", expectedLink));
+
+        return Browser.getDriver().findElement(twitterLink).getAttribute("href");
     }
 
-    public void verifyFacebookLink(String expectedLink) {
+    public String getFacebookLink(){
         Browser.wait.until(ExpectedConditions.visibilityOfElementLocated(facebookLink));
-        Browser.wait.until(ExpectedConditions.attributeToBe(facebookLink, "href", expectedLink));
+
+        return Browser.getDriver().findElement(facebookLink).getAttribute("href");
     }
 
-    public void verifyContactUsLink(String expectedLink) {
+    public String getContactUsLink(){
         Browser.wait.until(ExpectedConditions.visibilityOfElementLocated(contactUsLink));
 
-        String contactUsFullPath = System.getProperty("environmentUrl") + expectedLink;
-
-        Browser.wait.until(ExpectedConditions.attributeToBe(contactUsLink, "href", contactUsFullPath));
+        return Browser.getDriver().findElement(contactUsLink).getAttribute("href");
     }
 
     public void clickCategoriesDropdown() {
         Browser.wait.until(ExpectedConditions.visibilityOfElementLocated(categoriesDropDown)).click();
     }
 
-    public void verifyNumberOfCategories(int numberOfExpectedCategories) {
+    public int getNumberOfCategories(){
         Browser.wait.until(ExpectedConditions.visibilityOfElementLocated(allCategoriesPresented));
-        Browser.wait.until(ExpectedConditions.numberOfElementsToBe(allCategoriesPresented, numberOfExpectedCategories));
+
+        return Browser.getDriver().findElements(allCategoriesPresented).size();
     }
 
-    public void verifyCategoriesPresented(String expectedCategories) {
+    public List<String> getCategoriesPresented(){
         List<WebElement> presentedCategories = Browser.wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(allCategoriesPresented));
 
-        List<String> expectedCategoriesAsList = Arrays.asList(expectedCategories.split(","));
+        List<String> categoriesAsStrings = new ArrayList<String>();
 
-        for(int currentIndex = 0; currentIndex < expectedCategoriesAsList.size(); currentIndex++){
-            Browser.wait.until(ExpectedConditions.textToBePresentInElement(presentedCategories.get(currentIndex),expectedCategoriesAsList.get(currentIndex).trim()));
+        int index = 0;
+        for(WebElement el : presentedCategories){
+            categoriesAsStrings.add(presentedCategories.get(index++).getText());
         }
+
+        return categoriesAsStrings;
     }
 
     public void populateSearchField(String keyword){
@@ -81,8 +84,8 @@ public class Header {
         Browser.wait.until(ExpectedConditions.visibilityOfElementLocated(searchButton)).click();
     }
 
-    public void verifyNumberOfItemsInCart(String numberOfItemsAdded) {
-        Browser.wait.until(ExpectedConditions.textToBePresentInElementLocated(itemsAddedToCart, numberOfItemsAdded));
+    public String getNumberOfItemsInCart(){
+        return Browser.wait.until(ExpectedConditions.visibilityOfElementLocated(itemsAddedToCart)).getText();
     }
 
     public void clickCheckOutButton() {

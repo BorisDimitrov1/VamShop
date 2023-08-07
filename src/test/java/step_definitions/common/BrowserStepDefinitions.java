@@ -8,10 +8,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class BrowserStepDefinitions {
 
     @When("I navigate to the e-shop")
-    public void navigateToGmail(){
+    public void navigateToShop(){
         Browser.getDriver().navigate().to(System.getProperty("environmentUrl"));
     }
-
 
     @When("I navigate to the e-shop admin login")
     public void iNavigateToTheEShopAdminLogin() {

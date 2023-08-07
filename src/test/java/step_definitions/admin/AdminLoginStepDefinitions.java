@@ -7,7 +7,6 @@ public class AdminLoginStepDefinitions {
 
     private AdminLoginPage loginPage = new AdminLoginPage();
 
-
     @And("Populate the username field with correct username")
     public void populateTheUsernameFieldWithCorrectUsername() {
         loginPage.populateUsername(System.getProperty("adminUsername"));
@@ -22,7 +21,4 @@ public class AdminLoginStepDefinitions {
     public void clickLoginButton(){
         loginPage.clickLoginButton();
     }
-
-
-
 }
